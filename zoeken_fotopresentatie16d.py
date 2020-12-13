@@ -9,20 +9,18 @@ from tkinter import Label, Button, Scrollbar, Menu
 from PIL import ImageTk, Image
 
 global index_diavoorst
-global richting
 
-VERSIE = "fotopresentatie 16d"  # datum: 13-12-2020 17:42
+VERSIE = "fotopresentatie 16d"  # datum: 13-12-2020 19:20
 
 # Bepaal het pad van de programma's en bestanden
-
 PADNAAM = os.getcwd() + "/"
-
 
 # ---------------------- Functies ---------------------------------------
 
+
 def fotopresentatie(foto, gegevens, geg_dict):
     """ Toont foto in een fotovenster
-        Nummers foto's staan in de lijst 'gegevens'
+        Nummers foto's staan in de list 'gegevens'
     """
     global index_diavoorst
 
@@ -82,7 +80,7 @@ def fotopresentatie(foto, gegevens, geg_dict):
             orig_vorm_a.select()
         elif (geg_dict[fotonr]['orig_vorm']) == "digitaal":
             orig_vorm_d.select()
-        # invoer_vorm.insert('0', geg_dict[fotonr]['orig_vorm'])
+        invoer_vorm.insert('0', geg_dict[fotonr]['orig_vorm'])
         invoer_archief.insert('0', geg_dict[fotonr]['archief'])
         invoer_groep.insert('0', geg_dict[fotonr]['groep'])
         invoer_oude_nr.insert('0', geg_dict[fotonr]['oude_nr'])
@@ -107,22 +105,16 @@ def fotopresentatie(foto, gegevens, geg_dict):
 
     def foto_volgende():
         global index_diavoorst
-        global richting
-        richting = "vooruit"
         index_diavoorst += 1
         foto_venster.quit()
 
     def foto_vorige():
         global index_diavoorst
-        global richting
-        richting = "terug"
         index_diavoorst -= 1
         foto_venster.quit()
 
     def foto_stoppen():
-        global richting
-        richting = "stoppen"
-        foto_venster.quit()
+        foto_venster.destroy()
 
     def sel_orig_vorm():
         pass
@@ -437,12 +429,13 @@ def fotopresentatie(foto, gegevens, geg_dict):
         # zoek het indexnr van de geselecteerde foto in de diavoorstelling
         # break is nodig omdat bij gelijksoortige foto's (01a06616, 01a06616a)
         # de laatste foto wordt geselecteerd ipv de eerste
-        # ----- de lijst gegevens moet straks alleen uit fotonummers bestaan
+        # ----- de list gegevens bestaat alleen uit fotonummers
         if foto in gegevens[i]:
             index_diavoorst = i
             break
 
     # Start de diavoorstelling ------------------------------------------------
+
     old_label_image = None  # er staat nog geen foto in het canvas
     doorgaan = 1
     while doorgaan == 1:
@@ -468,15 +461,13 @@ def fotopresentatie(foto, gegevens, geg_dict):
 
         foto_venster.mainloop()
 
-        if richting == "vooruit":
-            if index_diavoorst == len(gegevens):
-                foto_venster.destroy()
-                doorgaan = 0
-        if richting == "terug":
-            if index_diavoorst == -1:
-                foto_venster.destroy()
-                doorgaan = 0
-        if richting == "stoppen":
+        if index_diavoorst == len(gegevens):
+            # einde fotopresentatie
             foto_venster.destroy()
             doorgaan = 0
+        if index_diavoorst == -1:
+            # begin fotopresentatie
+            foto_venster.destroy()
+            doorgaan = 0
+
     return index_diavoorst
