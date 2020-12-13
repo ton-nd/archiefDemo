@@ -26,7 +26,6 @@
 
 import os
 import sys
-import time
 import glob
 from tkinter import LabelFrame, Listbox, Entry, messagebox
 from tkinter import Tk, Label, Button, Scrollbar, Menu, filedialog
@@ -34,10 +33,9 @@ import xlrd
 
 from zoeken_fotopresentatie16d import fotopresentatie
 
-global PAD_BESTANDEN
 global foto_presentatie
 
-D = dict()  # In de dictionary D staan alle gegevens van een record
+geg_dict = dict()  # In de dictionary D staan alle gegevens van een record
 
 VERSIE = "Demo"  # datum: 12-12-2020  13:00
 
@@ -98,7 +96,7 @@ def print_regels(tekst, zoekresultaten):
 def verzamel_gegevens(categorie, rowidx):
     """Vul dictionary D met gegevens van 1 Excelrecord """
     sheet = workbook.sheet_by_name(categorie)
-    gegevens = []
+    # gegevens = []
     # gebruik data uit Excel-bestand ecal
     nummer = str(sheet.cell_value(rowidx, 0))
     datering = str(sheet.cell_value(rowidx, 11))
@@ -108,33 +106,35 @@ def verzamel_gegevens(categorie, rowidx):
     huisnummer = str(sheet.cell_value(rowidx, 15))
     if huisnummer[-2:] == ".0":
         huisnummer = huisnummer[:-2]
-    D[nummer] = {'beschrijving': str(sheet.cell_value(rowidx, 1)),
-                 'voornaam': sheet.cell_value(rowidx, 2),
-                 'tussenvoegsel': sheet.cell_value(rowidx, 3),
-                 'achternaam': sheet.cell_value(rowidx, 4),
-                 'patroniem': sheet.cell_value(rowidx, 5),
-                 'geboorteplaats': sheet.cell_value(rowidx, 6),
-                 'geboortedatum': sheet.cell_value(rowidx, 7),
-                 'overlijdensplaats': sheet.cell_value(rowidx, 8),
-                 'geslacht': sheet.cell_value(rowidx, 9),
-                 'beroep': sheet.cell_value(rowidx, 10),
-                 'datering': datering,
-                 'gemeente': sheet.cell_value(rowidx, 12),
-                 'plaats': sheet.cell_value(rowidx, 13),
-                 'straatnaam': sheet.cell_value(rowidx, 14),
-                 'huisnummer': huisnummer,
-                 'toevoeging': sheet.cell_value(rowidx, 16),
-                 'fotograaf': sheet.cell_value(rowidx, 17),
-                 'copyright_': sheet.cell_value(rowidx, 18),
-                 'notabene': sheet.cell_value(rowidx, 19),
-                 'orig_vorm': sheet.cell_value(rowidx, 20),
-                 'uiterl_vorm': sheet.cell_value(rowidx, 21),
-                 'archief': sheet.cell_value(rowidx, 22),
-                 'groep': sheet.cell_value(rowidx, 23),
-                 'oude_nr': sheet.cell_value(rowidx, 24),
-                 'code': sheet.cell_value(rowidx, 25),
-                 # 'pad': sheet.cell_value(rowidx, 26)}
-                 'pad': PAD_BESTANDEN + "afbeeldingen/" + nummer + ".jpg"}
+    geg_dict[nummer] = {'beschrijving': str(sheet.cell_value(rowidx, 1)),
+                        'voornaam': sheet.cell_value(rowidx, 2),
+                        'tussenvoegsel': sheet.cell_value(rowidx, 3),
+                        'achternaam': sheet.cell_value(rowidx, 4),
+                        'patroniem': sheet.cell_value(rowidx, 5),
+                        'geboorteplaats': sheet.cell_value(rowidx, 6),
+                        'geboortedatum': sheet.cell_value(rowidx, 7),
+                        'overlijdensplaats': sheet.cell_value(rowidx, 8),
+                        'geslacht': sheet.cell_value(rowidx, 9),
+                        'beroep': sheet.cell_value(rowidx, 10),
+                        'datering': datering,
+                        'gemeente': sheet.cell_value(rowidx, 12),
+                        'plaats': sheet.cell_value(rowidx, 13),
+                        'straatnaam': sheet.cell_value(rowidx, 14),
+                        'huisnummer': huisnummer,
+                        'toevoeging': sheet.cell_value(rowidx, 16),
+                        'fotograaf': sheet.cell_value(rowidx, 17),
+                        'copyright_': sheet.cell_value(rowidx, 18),
+                        'notabene': sheet.cell_value(rowidx, 19),
+                        'orig_vorm': sheet.cell_value(rowidx, 20),
+                        'uiterl_vorm': sheet.cell_value(rowidx, 21),
+                        'archief': sheet.cell_value(rowidx, 22),
+                        'groep': sheet.cell_value(rowidx, 23),
+                        'oude_nr': sheet.cell_value(rowidx, 24),
+                        'code': sheet.cell_value(rowidx, 25),
+                        # 'pad': sheet.cell_value(rowidx, 26)}
+                        'pad': PAD_BESTANDEN + "afbeeldingen/" + nummer \
+                            + ".jpg"
+                        }
     data = ""
     for i in range(26):
         data = data + str(sheet.cell_value(rowidx, i)) + " "
@@ -150,20 +150,20 @@ def zoek_in_afbeeldingen(zoekw1, zoekw2):
         data, fotonr = verzamel_gegevens("afbeeldingen", rowidx)
         # alleen zoeken naar trefwoord
         if zoekw1[0] == "#":
-            data = D[fotonr]['groep']
+            data = geg_dict[fotonr]['groep']
             zoekwoord1 = " " + zoekw1[1:]
         else:
             zoekwoord1 = zoekw1
         if zoekwoord1.lower() in data.lower() \
                 and zoekw2.lower() in data.lower():
             # nr, beschrijving, datum foto
-            pad = D[fotonr]['pad']
+            pad = geg_dict[fotonr]['pad']
             if os.path.isfile(pad):
                 zoekresultaten.append(
                     ("12_" + str(rowidx) + ",").ljust(12)
                     + fotonr.ljust(20)
-                    + D[fotonr]['beschrijving']
-                    + "  " + D[fotonr]['datering'])
+                    + geg_dict[fotonr]['beschrijving']
+                    + "  " + geg_dict[fotonr]['datering'])
                 # Als scan aanwezig is, voeg scan toe aan fotopresentatie
                 foto_presentatie.append(fotonr)
             else:
@@ -217,7 +217,7 @@ def zoek_in_geboorteakten(zoekw1, zoekw2):
         nummer = sheet.cell_value(rowidx, 0)
         vader = sheet.cell_value(rowidx, 1)
         moeder = sheet.cell_value(rowidx, 2)
-        code = sheet.cell_value(rowidx,3)
+        code = sheet.cell_value(rowidx, 3)
         if zoekw2 == "vader" or zoekw2 == "moeder":
             zoekw1, zoekw2 = zoekw2, zoekw1
         if zoekw1 == "vader":
@@ -248,7 +248,7 @@ def zoek_in_trouwakten(zoekw1, zoekw2):
         aktenr = str(sheet.cell_value(rowidx, 1))[:-2]  # eindigt op .0
         bruidegom = sheet.cell_value(rowidx, 2)
         bruid = sheet.cell_value(rowidx, 3)
-        code = sheet.cell_value(rowidx,4)
+        code = sheet.cell_value(rowidx, 4)
         if zoekw2 == "bruid" or zoekw2 == "bruidegom":
             zoekw1, zoekw2 = zoekw2, zoekw1
         if zoekw1 == "bruidegom":
@@ -256,7 +256,8 @@ def zoek_in_trouwakten(zoekw1, zoekw2):
         elif zoekw1 == "bruid":
             data = nummer + " " + bruid + " " + code
         else:
-            data = nummer + " " + aktenr + " " + bruidegom + " " + bruid + " " + code
+            data = nummer + " " + aktenr + " " + bruidegom + " " \
+                   + bruid + " " + code
         data = data.lower()
         zoekw1 = zoekw1.lower()
         zoekw2 = zoekw2.lower()
@@ -337,7 +338,7 @@ def lees_gegevens(index_overzicht):
 def toon_foto(index_overzicht):
     scan_nr = lees_gegevens(index_overzicht)
     # scan_nr = naam/nummer van de foto
-    index_diav = fotopresentatie(scan_nr, foto_presentatie, D)
+    index_diav = fotopresentatie(scan_nr, foto_presentatie, geg_dict)
     regelnummer = index_diav + 5
     # scroll het overzicht zodat gewijzigde regel zichtbaar wordt + 10 regels
     overzicht.see(regelnummer + 10)
@@ -376,7 +377,7 @@ def toon_krant(index_overzicht):
     scan_nr = sheet.cell_value(rijnr, 0)  # 1925-1970_012a
     underscore = scan_nr.find("_")
     pad = PAD_BESTANDEN + "kranten/" + scan_nr[0:underscore] + "/" \
-          + scan_nr + ".jpg"
+        + scan_nr + ".jpg"
     if os.path.isfile(pad):
         toon_scan("krant", pad)
     else:
@@ -391,7 +392,7 @@ def toon_geboorteakte(index_overzicht):
     scan_nr = sheet.cell_value(rijnr, 0)  # 1811_22-044
     mapnaam = scan_nr[0:4]
     pad = PAD_BESTANDEN + "geboorteakten/" + mapnaam + "/" + scan_nr[:-4] \
-          + ".jpg"
+        + ".jpg"
     toon_scan("akte", pad)
 
 
@@ -556,7 +557,6 @@ try:
 except FileNotFoundError:
     messagebox.showwarning("Zoeken", "Excelbestand niet gevonden in "
                            + PAD_BESTANDEN)
-
 
 # bouw GUI -------------------------------------------------------------
 
