@@ -1,0 +1,39 @@
+ 
+ Typ het zoekwoord in het linker venster en druk op Enter of klik op de knop 'Zoeken'.
+ 
+ U kunt ook naar twee zoekwoorden zoeken, of een zoekwoord en een jaartal. Typ het eerste zoekwoord, druk op de TAB-toets
+ en typ de tweede zoekterm in het tweede venster en druk op Enter of klik op de knop 'Zoeken'.
+ 
+ Dubbelklik op een regel met een zoekresultaat (documenten en boeken met een > voor het nummer zijn niet gescand) om een
+ item te bekijken. Foto's kunt u daarna in een fotopresentatie bekijken. Daarbij kunt u bladeren door op de knoppen
+ < en > te klikken of door de pijltjestoetsen links en rechts op het toetsenbord te gebruiken.
+ 
+ Vensters met foto's en documenten kunt u afsluiten door rechtsboven op het kruisje te klikken.
+ Het venster met de fotopresentatie sluit u correct af door op de knop 'Overzicht' te klikken.
+ Als u dubbelklikt op een zoekresultaat van het kadaster wordt eerst de bladzijde uit het boek getoond.
+ Nadat u dit venster hebt afgesloten, wordt de scan van de kaart getoond (soms ook tegelijk, afhankelijk van de laptop).
+
+ Als het eerste zoekwoord wordt voorafgegaan door een # (hekje), wordt alleen naar trefwoorden gezocht 
+ (voorlopig alleen in fotomappen en delpher).
+ 
+ In geboorte- en trouwakten kunt u zoeken naar de namen van vader en moeder, bruid en bruidegom.
+ Als u alleen naar de naam van bijvoorbeeld de vader wilt zoeken, voert u twee zoekwoorden in: 
+ 'vader' in het eerste venster en de naam van de vader in het tweede venster.
+ 
+ Typ bij het zoeken van een woning alleen het belangrijkste deel van die straatnaam in, zonder nummer!
+ 'Burgemeester Mensstraat' wordt bijvoorbeeld niet gevonden omdat die straat als 'Burg Mensstraat' in de database staat.
+ U krijgt een lijst met alle woningen in een straat, waarna u het juiste nummer kunt selecteren.
+ 
+ Als u op 'Wissen' klikt, worden alleen de zoektermen gewist. Als u het scherm wilt wissen, klikt u
+ linksboven op 'Overzicht - Wissen'.
+
+ Het overzicht van de zoekresultaten kunt u opslaan. Klik daarvoor op 'Overzicht - Opslaan als...'
+ Als u klikt op 'Overzicht openen' wordt het door u geselecteerde overzicht geopend in Kladblok.
+
+ U kunt opmerkingen maken bij de afbeeldingen, bijvoorbeeld om aan te geven dat er een fout in de beschrijving staat of
+ om aanvullende informatie te noteren. Het bestand met de opmerkingen kunt u inzien door bovenin op 'Opmerkingen'te klikken.
+ 
+ Betekenis van nummers aan het begin van de resultaatregels:
+ Voor de underscore: bladnummer van Excelbestand
+ Na de underscore:   rijnummer van het record - 1.
+ Voorbeeld: 3_246 = Excelblad 3 (Fotomappen), rijnummer 247.
