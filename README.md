@@ -16,3 +16,5 @@ De procedure:
 De fotopresentatiemodule wordt aangeroepen met drie parameters: het nummer van de eerste foto, een list met de nummers van alle foto's in de juiste volgorde en een dictionary met alle bijbehorende gegevens. 
 
 Het programma en het bijbehorende Excelbestand staan in afgeslankte vorm in de map archiefDemo. Het programma zoekt in vier categorieën in een Excelbestand met zestien records. Het zoekwoord 'archief' levert een overzicht op van alle zestien records.
+
+Deze repository is geplaatst om leden van de interessegroep HCC!programmeren in de gelegenheid te stellen het programma te bekijken en eventueel feedback te geven.
